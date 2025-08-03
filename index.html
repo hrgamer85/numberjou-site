@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>نامبرجو - فروش شماره مجازی و پرمیوم تلگرام</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0b1c2c;
+      color: #f5e8c7;
+      text-align: center;
+      direction: rtl;
+      padding: 20px;
+    }
+    header img {
+      width: 150px;
+      height: auto;
+      margin: 0 auto 20px auto;
+      display: block;
+    }
+    h1 {
+      margin-bottom: 40px;
+    }
+    .price-box {
+      font-size: 1.5em;
+      margin: 20px 0;
+    }
+    .services {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .service {
+      background: #1e2d3d;
+      padding: 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      width: 150px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+    .service:hover {
+      background: #283d55;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.8);
+    }
+    .service img {
+      width: 90px;
+      height: 90px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    #variant-box {
+      margin-top: 35px;
+      font-size: 1.2em;
+      min-height: 140px;
+    }
+    select {
+      padding: 10px 16px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background: #22354a;
+      color: #f5e8c7;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      transition: background-color 0.3s ease;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="none" stroke="%23f5e8c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" ><polyline points="6 9 12 15 18 9"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px 16px;
+    }
+    select:hover {
+      background-color: #304a6e;
+    }
+    #price-display {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 1.4em;
+      color: #f0c040;
+    }
+    #telegram-link, #buy-link {
+      margin-top: 15px;
+      display: inline-block;
+      padding: 12px 25px;
+      background: #2a9df4;
+      color: white;
+      font-weight: 700;
+      border-radius: 25px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(42,157,244,0.7);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      font-size: 1.2em;
+      user-select: none;
+    }
+    #telegram-link:hover, #buy-link:hover {
+      background: #2380d8;
+      box-shadow: 0 6px 14px rgba(35,128,216,0.9);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="لوگو نامبرجو" />
+  </header>
+
+  <h1>نامبرجو | فروش شماره مجازی و پرمیوم تلگرام</h1>
+
+  <div class="price-box">
+    قیمت لحظه‌ای تتر: <span id="usdt-price">۴۰۰,۰۰۰</span> تومان
+  </div>
+
+  <div class="services">
+    <div class="service" id="virtual-service" onclick="selectService('virtual')">
+      <img src="virtual.png" alt="شماره مجازی" />
+      شماره مجازی
+    </div>
+    <div class="service" id="premium-service" onclick="selectService('premium')">
+      <img src="premium.png" alt="پرمیوم تلگرام" />
+      پرمیوم تلگرام
+    </div>
+  </div>
+
+  <div id="variant-box"></div>
+
+  <script>
+    const services = {
+      virtual: [],
+      premium: [
+        { label: "3 ماهه", price: 1297000 },
+        { label: "6 ماهه", price: 1697000 },
+        { label: "یک ساله", price: 2900000 }
+      ]
+    };
+
+    function selectService(type) {
+      const box = document.getElementById("variant-box");
+      box.innerHTML = "";
+
+      if (type === "virtual") {
+        const link = document.createElement("a");
+        link.href = "https://t.me/numberjou_bot";  // لینک ربات تلگرامت رو اینجا بذار
+        link.target = "_blank";
+        link.id = "telegram-link";
+        link.textContent = "برای دریافت و استعلام قیمت کلیک کنید";
+        box.appendChild(link);
+      } else if (type === "premium") {
+        const select = document.createElement("select");
+        select.id = "variant-select";
+
+        const defaultOption = document.createElement("option");
+        defaultOption.text = "لطفا نوع سرویس را انتخاب کنید";
+        defaultOption.value = "";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        select.appendChild(defaultOption);
+
+        services.premium.forEach((item, index) => {
+          const option = document.createElement("option");
+          option.value = index;
+          option.text = item.label;
+          select.appendChild(option);
+        });
+
+        box.appendChild(select);
+
+        const priceDisplay = document.createElement("div");
+        priceDisplay.id = "price-display";
+        box.appendChild(priceDisplay);
+
+        const buyLink = document.createElement("a");
+        buyLink.href = "https://t.me/hrsedaghatjou"; // لینک خرید تلگرامت اینجا بذار
+        buyLink.target = "_blank";
+        buyLink.id = "buy-link";
+        buyLink.textContent = "خرید از طریق تلگرام";
+        buyLink.style.display = "none";
+        box.appendChild(buyLink);
+
+        select.addEventListener("change", function() {
+          const idx = this.value;
+          if (idx !== "") {
+            const price = services.premium[idx].price;
+            priceDisplay.textContent = `قیمت: ${price.toLocaleString()} تومان`;
+            buyLink.style.display = "inline-block";
+          } else {
+            priceDisplay.textContent = "";
+            buyLink.style.display = "none";
+          }
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
